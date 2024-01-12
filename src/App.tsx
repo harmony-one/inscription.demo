@@ -16,11 +16,11 @@ function App() {
     >
       <Header />
       <BodyContainer
-        justify="center"
+        justify="start"
         align="center"
       >
         <Box style={{
-          maxWidth: 800
+          maxWidth: 1200
         }}>
         <Routes>
           <Route path="/" element={<Inscription />} />
