@@ -5,116 +5,71 @@ import { useStores } from "stores";
 import { MetamaskButton } from "../../components/MetamaskButton";
 import { Button } from "../../components//Button";
 import Web3 from "web3";
+import { InscriptionText } from "./InscriptionText";
+import { InscriptionHrc20 } from "./InscriptionHRC20";
+import { InscriptionHistory } from "./InscriptionHistory";
 
-// @ts-ignore
-const web3 = new Web3(window.ethereum);
+enum INS_TABS {
+    HRC20 = 'OneScription',
+    TEXT = 'Text',
+    HISTORY = 'History',
+}
+
+const TabButton = ({ children, active, onClick }) => {
+    console.log(active)
+
+    return <Button
+        size="auto"
+        transparent
+        onClick={onClick}
+        style={{
+            background: active ? "rgb(56, 179, 255)" : "white",
+            color: active ? "white" : "black",
+        }}
+    >
+        {children}
+    </Button>
+}
 
 export const Inscription = observer((props) => {
-    const [value, setValue] = useState('');
-    const [error, setError] = useState('');
-    const [tx, setTx] = useState('');
-    const { user } = useStores();
+    const [tab, setTab] = useState<INS_TABS>(INS_TABS.HRC20);
 
-    const onClickSend = async () => {
-        setError('');
-        setTx('');
+    return <Box gap="60px" pad="large" align="start" justify="start">
+        <Box direction="row" gap="20px">
+            <TabButton
+                onClick={() => setTab(INS_TABS.HRC20)}
+                active={tab === INS_TABS.HRC20}
+            >
+                {INS_TABS.HRC20}
+            </TabButton>
 
-        // Get gas price
-        web3.eth.getGasPrice().then(function (gasPrice) {
-            // Perform the 0 ETH transfer to the user's account with the gas price
-            web3.eth.sendTransaction({
-                from: user.address,
-                to: user.address,
-                value: '0',
-                data: web3.utils.toHex(value),
-                gasPrice: gasPrice
-            }, function (error, transactionHash) {
-                if (!error) {
-                    console.log('Transaction successful:', transactionHash);
-                    setTx(transactionHash)
-                } else {
-                    console.log('Transaction error:', error);
-                    setError(error?.message)
-                }
-            });
-        }).catch(function (error) {
-            console.log('Error getting gas price:', error);
-            setError(error?.message)
-        });
-    }
+            <TabButton
+                onClick={() => setTab(INS_TABS.TEXT)}
+                active={tab === INS_TABS.TEXT}
+            >
+                {INS_TABS.TEXT}
+            </TabButton>
 
-    if (!user.address) {
-        return <Box
-            pad="large"
-            align="center"
-            justify="center"
-            gap="30px"
-            height="300px"
-        >
-            <MetamaskButton
-                active={true}
-                onClick={() => user.signIn()}
-            />
-
-            <Text size="18px" weight="bold" textAlign="center">
-                Connect your MetaMask wallet to continue
-            </Text>
-        </Box>
-    }
-
-    return <Box pad="large" gap="20px">
-        {/* <Text size="24px" weight="bold" textAlign="center">
-            Send
-        </Text> */}
-
-        <Box
-            fill={true}
-            direction="column"
-            gap="5px"
-        >
-            <Text>Data:</Text>
-
-            <Box width="600px">
-                <TextArea
-                    size="auto"
-                    placeholder="data:"
-                    style={{ width: '100%', textAlign: 'center' }}
-                    value={value}
-                    onChange={evt => {
-                        setValue(evt.target.value)
-                    }}
-                />
-            </Box>
+            <TabButton
+                onClick={() => setTab(INS_TABS.HISTORY)}
+                active={tab === INS_TABS.HISTORY}
+            >
+                {/* {INS_TABS.HISTORY} */}
+                Indexer
+            </TabButton>
         </Box>
 
         <Box
+            gap="20px"
             fill={true}
-            direction="column"
-            gap="5px"
+            style={{
+                minWidth: 800,
+                minHeight: 400,
+            }}
         >
-            <Text>Hex:</Text>
-
-            <Box width="600px">
-                <TextArea
-                    size="auto"
-                    disabled={true}
-                    placeholder="data:"
-                    style={{ width: '100%', textAlign: 'center' }}
-                    value={web3.utils.toHex(value)}
-                />
-            </Box>
+            {tab === INS_TABS.HRC20 && <InscriptionHrc20 />}
+            {tab === INS_TABS.TEXT && <InscriptionText />}
+            {tab === INS_TABS.HISTORY && <InscriptionHistory />}
         </Box>
-
-        <Button
-            size="auto"
-            transparent
-            onClick={() => onClickSend()}
-            color="Basic700"
-        >
-            Send
-        </Button>
-
-        {error && <Text color="red">{error}</Text>}
-        {tx && <a target="_blank" href={`https://explorer.harmony.one/tx/${tx}`}>{tx}</a>}
     </Box>
 })

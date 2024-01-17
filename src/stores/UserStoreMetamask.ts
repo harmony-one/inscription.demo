@@ -88,7 +88,7 @@ export class UserStoreMetamask {
     } else {
       this.address = accounts[0];
 
-      this.getStreamChatKeys();
+      // this.getStreamChatKeys();
 
       try {
         this.updateBalance();
