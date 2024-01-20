@@ -8,8 +8,10 @@ import Web3 from "web3";
 import { InscriptionText } from "./InscriptionText";
 import { InscriptionHrc20 } from "./InscriptionHRC20";
 import { InscriptionHistory } from "./InscriptionHistory";
+import { InscriptionOneCountry } from "./InscriptionOneCountry";
 
 enum INS_TABS {
+    COUNTRY = 'OneCountry',
     HRC20 = 'OneScription',
     TEXT = 'Text',
     HISTORY = 'History',
@@ -32,10 +34,17 @@ const TabButton = ({ children, active, onClick }) => {
 }
 
 export const Inscription = observer((props) => {
-    const [tab, setTab] = useState<INS_TABS>(INS_TABS.HRC20);
+    const [tab, setTab] = useState<INS_TABS>(INS_TABS.COUNTRY);
 
     return <Box gap="60px" pad="large" align="start" justify="start">
         <Box direction="row" gap="20px">
+            <TabButton
+                onClick={() => setTab(INS_TABS.COUNTRY)}
+                active={tab === INS_TABS.COUNTRY}
+            >
+                {INS_TABS.COUNTRY}
+            </TabButton>
+
             <TabButton
                 onClick={() => setTab(INS_TABS.HRC20)}
                 active={tab === INS_TABS.HRC20}
@@ -70,6 +79,7 @@ export const Inscription = observer((props) => {
             {tab === INS_TABS.HRC20 && <InscriptionHrc20 />}
             {tab === INS_TABS.TEXT && <InscriptionText />}
             {tab === INS_TABS.HISTORY && <InscriptionHistory />}
+            {tab === INS_TABS.COUNTRY && <InscriptionOneCountry />}
         </Box>
     </Box>
 })
