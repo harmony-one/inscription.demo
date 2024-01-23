@@ -4,27 +4,30 @@ import { Header } from './Header';
 import { Box } from 'grommet';
 import { BodyContainer } from 'components/BodyContainer';
 import { ActionModals } from 'components/ActionModals';
-import { Inscription } from 'pages/Inscription';
+import { Main } from 'pages/main';
 
 function App() {
   return (
     <Box
       fill={true}
-      pad={{ horizontal: 'medium', bottom: 'medium' }}
-      style={{ height: '100%', position: 'fixed', overflow: 'hidden' }}
-      gap="20px"
+      pad={{ horizontal: 'medium', top: 'xlarge', bottom: 'medium' }}
+      style={{ height: '100%' }}
     >
-      <Header />
+      {/* <Header /> */}
       <BodyContainer
         justify="start"
         align="center"
       >
-        <Box style={{
-          maxWidth: 1200
-        }}>
-        <Routes>
-          <Route path="/" element={<Inscription />} />
-        </Routes>
+        <Box
+          fill={true}
+          style={{
+            maxWidth: 800
+          }}
+        >
+          <Routes>
+            <Route path="/" element={<Main />} />
+            {/* <Route path="/" element={<InscriptionHistory />} /> */}
+          </Routes>
         </Box>
       </BodyContainer>
       <ActionModals />
