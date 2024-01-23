@@ -7,7 +7,7 @@ import axios from "axios";
 import { dateTimeAgoFormat, truncateAddressString } from "utils";
 import * as _ from 'lodash';
 
-const columns:any = [
+const columns: any = [
     {
         title: 'Date',
         dataIndex: 'timestamp',
@@ -23,7 +23,7 @@ const columns:any = [
         dataIndex: 'from',
         align: 'end',
         key: 'from',
-        width: 200,
+        width: 150,
         render: (value) => {
             return <Box margin={{ vertical: 'medium' }}>
                 <a
@@ -41,7 +41,7 @@ const columns:any = [
         dataIndex: 'transactionHash',
         key: 'transactionHash',
         align: 'end',
-        width: 200,
+        width: 150,
         render: (value) => {
             return <Box margin={{ vertical: 'medium' }}>
                 <a
@@ -59,7 +59,7 @@ const columns:any = [
         dataIndex: 'payload',
         key: 'payload',
         align: 'end',
-        width: 200,
+        width: 100,
         render: (payload) => {
             return <Box margin={{ vertical: 'medium' }}>
                 <a
@@ -71,6 +71,16 @@ const columns:any = [
             </Box>
         }
     },
+    {
+        title: 'Domain',
+        dataIndex: 'transactionHash',
+        key: 'transactionHash',
+        align: 'end',
+        width: 100,
+        render: (transactionHash) => {
+            return transactionHash.slice(-2)
+        }
+    },
 ];
 
 export const InscriptionHistory = observer((props) => {
@@ -78,9 +88,16 @@ export const InscriptionHistory = observer((props) => {
     const [isLoaded, setIsLoaded] = useState(false);
 
     const fetchData = async () => {
-        const res = await axios.get('https://inscription-indexer.fly.dev/inscriptions?limit=100');
+        const res = await axios.get('https://inscription-indexer.fly.dev/inscriptions', {
+            params: {
+                limit: 100,
+                to: '0x3abf101D3C31Aec5489C78E8efc86CaA3DF7B053'
+            }
+        });
 
-        let data = res.data.filter(d => d.payload?.value?.includes('https://'));
+        let data = res.data.filter(
+            d => ['x.com', 'twitter.com'].some(sub => d.payload?.value?.includes(sub))
+        );
 
         data = _.uniqBy(data, 'transactionHash');
 
