@@ -109,7 +109,7 @@ export const InscriptionHistory = observer((props) => {
         gap="xlarge"
         align="center"
     >
-        <Text size="large" weight="bold">Latest Transactions</Text>
+        <Text size="large" weight="bold">Valid Entry Inscriptions</Text>
         <Table
             data={data}
             columns={columns}

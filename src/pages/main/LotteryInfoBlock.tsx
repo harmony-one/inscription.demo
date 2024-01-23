@@ -41,7 +41,7 @@ export const LotteryInfoBlock = (() => {
         </Box>
 
         <Box>
-            <Text><b>First tx:{' '}</b>
+            <Text><b>Origin Inscription:{' '}</b>
                 <a
                     target="_blank"
                     style={{ cursor: 'pointer' }}
@@ -52,7 +52,7 @@ export const LotteryInfoBlock = (() => {
         </Box>
 
         <Box>
-            <Text><b>Winner tx:{' '}</b>
+            <Text><b>Closest Entry (current winner):{' '}</b>
                 ???
             </Text>
         </Box>

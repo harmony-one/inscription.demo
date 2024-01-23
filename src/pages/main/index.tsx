@@ -21,9 +21,9 @@ const Plane = (props?: any) => {
 export const Main = (() => {
     return <Box gap="large" fill={true} align="center">
         <Box gap="medium" align="center" fill={true}>
-            <Text size="xlarge" weight="bold">Quest Lottery</Text>
+            <Text size="xlarge" weight="bold">Quest</Text>
             <Text size="medium" style={{ maxWidth: '100%' }}>
-                Send an inscription transaction with your favorite tweet to the lottery address 0x3abf101D3C31Aec5489C78E8efc86CaA3DF7B053. A daily winner gets 1000 ONE tokens and 100 HOG tokens as of Jan 18th, 2024.
+                In 24 hours, the transaction hash with the closest last 2 digits to the Origin Inscription's last 2 digits (in HEX) will win 1000 ONE tokens and 100 HOG tokens!
             </Text>
         </Box>
 
