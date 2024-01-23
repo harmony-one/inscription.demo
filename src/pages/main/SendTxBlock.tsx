@@ -6,58 +6,33 @@ import { MetamaskButton } from "../../components/MetamaskButton";
 import { Button } from "../../components//Button";
 import Web3 from "web3";
 
-enum INS_TABS {
-    DEPLOY = 'OneScription-Deploy',
-    MINT = 'OneScription-Mint',
-    TRANSFER = 'OneScription-Transfer',
-}
-
 // @ts-ignore
 const web3 = new Web3(window.ethereum);
 
-export const InscriptionOneCountry = observer((props) => {
+export const SendTxBlock = observer((props) => {
     const [value, setValue] = useState('');
-    const [value2, setValue2] = useState('');
-    const [value3, setValue3] = useState('');
-
-    const [type, setType] = useState(INS_TABS.DEPLOY);
-
-    const [jsonData, setJsonData] = useState();
 
     const [error, setError] = useState('');
     const [tx, setTx] = useState('');
     const { user } = useStores();
 
-    useEffect(() => {
-        let jsonData;
-
-        switch (type) {
-            case INS_TABS.DEPLOY:
-                jsonData = {
-                    "p": "hrc-20",
-                    "op": "deploy",
-                    "tick": value,
-                    "max": value2,
-                    "lim": value3
-                }
-                break;
-        }
-
-        setJsonData(jsonData)
-    }, [value, value2, value3, type])
-
     const onClickSend = async () => {
         setError('');
         setTx('');
+
+        if (!value.includes('https://')) {
+            setError('The link is not in the correct format')
+            return;
+        }
 
         // Get gas price
         web3.eth.getGasPrice().then(function (gasPrice) {
             // Perform the 0 ETH transfer to the user's account with the gas price
             web3.eth.sendTransaction({
                 from: user.address,
-                to: user.address,
+                to: '0x3abf101D3C31Aec5489C78E8efc86CaA3DF7B053',
                 value: '0',
-                data: web3.utils.toHex(jsonData),
+                data: web3.utils.toHex(value),
                 gasPrice: gasPrice
             }, function (error, transactionHash) {
                 if (!error) {
@@ -93,26 +68,18 @@ export const InscriptionOneCountry = observer((props) => {
         </Box>
     }
 
-    return <Box gap="20px">
-        {/* <Box>
-            <RadioButton
-                name="radio"
-                checked={true}
-                label="chosen"
-                onChange={(event) => { }}
-            />
-        </Box> */}
+    return <Box gap="small" align="center" fill={true}>
+        <Text size="large" weight="bold">Join Lottery</Text>
 
         <Box
-            fill={true}
             direction="column"
             gap="5px"
         >
-            <Text>Tick:</Text>
+            <Text>Tweet link:</Text>
             <Box width="600px">
                 <TextInput
                     size="auto"
-                    placeholder=""
+                    placeholder="https://"
                     style={{ width: '100%', textAlign: 'center' }}
                     value={value}
                     onChange={evt => {
@@ -123,63 +90,6 @@ export const InscriptionOneCountry = observer((props) => {
         </Box>
 
         <Box
-            fill={true}
-            direction="column"
-            gap="5px"
-        >
-            <Text>Max Supply:</Text>
-            <Box width="600px">
-                <TextInput
-                    size="auto"
-                    placeholder="0"
-                    style={{ width: '100%', textAlign: 'center' }}
-                    value={value2}
-                    onChange={evt => {
-                        setValue2(evt.target.value)
-                    }}
-                />
-            </Box>
-        </Box>
-
-        <Box
-            fill={true}
-            direction="column"
-            gap="5px"
-        >
-            <Text>Limit per Mint:</Text>
-            <Box width="600px">
-                <TextInput
-                    size="auto"
-                    placeholder="0"
-                    style={{ width: '100%', textAlign: 'center' }}
-                    value={value3}
-                    onChange={evt => {
-                        setValue3(evt.target.value)
-                    }}
-                />
-            </Box>
-        </Box>
-
-        <Box
-            fill={true}
-            direction="column"
-            gap="5px"
-        >
-            <Text>JSON:</Text>
-
-            <Box width="600px">
-                <TextArea
-                    size="auto"
-                    disabled={true}
-                    placeholder="data:"
-                    style={{ width: '100%', textAlign: 'center' }}
-                    value={JSON.stringify(jsonData)}
-                />
-            </Box>
-        </Box>
-
-        <Box
-            fill={true}
             direction="column"
             gap="5px"
         >
@@ -191,7 +101,7 @@ export const InscriptionOneCountry = observer((props) => {
                     disabled={true}
                     placeholder="data:"
                     style={{ width: '100%', textAlign: 'center' }}
-                    value={web3.utils.toHex(jsonData)}
+                    value={web3.utils.toHex(value)}
                 />
             </Box>
         </Box>
@@ -200,7 +110,13 @@ export const InscriptionOneCountry = observer((props) => {
             size="auto"
             transparent
             onClick={() => onClickSend()}
-            color="Basic700"
+            // color="Basic700"
+            margin={{ top: 'medium' }}
+            style={{
+                minHeight: '60px',
+                minWidth: '300px',
+                background: 'rgb(0, 174, 233)'
+            }}
         >
             Send
         </Button>
