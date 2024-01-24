@@ -75,8 +75,8 @@ export const LotteryInfoBlock = (() => {
                 </a>
             </Text>
             <Text><b>Current Winner Domain:{' '}</b>
-                {/* <a target="_blank" href={`${lotteryInfo?.winnerDomain}.country`}>{lotteryInfo?.winnerDomain}.country</a> */}
-                {lotteryInfo?.winnerDomain}
+                <a target="_blank" href={`https://${lotteryInfo?.winnerDomain}.country`}>{lotteryInfo?.winnerDomain}.country</a>
+                {/* {lotteryInfo?.winnerDomain} */}
             </Text>
 
             <Text><b>Current Winner Tweet:{' '}</b>
