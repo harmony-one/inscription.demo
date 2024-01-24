@@ -69,7 +69,7 @@ export const SendTxBlock = observer((props) => {
     }
 
     return <Box gap="small" align="center" fill={true}>
-        <Text size="large" weight="bold">Join Lottery</Text>
+        <Text size="large" weight="bold">Enter Lottery</Text>
 
         <Box
             direction="column"
