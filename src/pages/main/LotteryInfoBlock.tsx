@@ -2,15 +2,29 @@ import React, { useEffect, useState } from "react";
 import { Box, RadioButton, Text, TextArea, TextInput } from "grommet";
 import CountDownTimer from "@inlightmedia/react-countdown-timer";
 import { dateFormat, truncateAddressString } from "utils";
+import axios from "axios";
 
 export const LotteryInfoBlock = (() => {
-    const [lotteryInfo, setLotteryInfo] = useState({
-        startTime: 1706018981,
-        endTime: 1706105381,
-        firstTx: '0xed92180b65d6597b6cb6b89ea54cdff6fc61543302e03e4e5f16b33f31d8ecc7',
-        winnerTx: '0xed92180b65d6597b6cb6b89ea54cdff6fc61543302e03e4e5f16b33f31d8ecc7',
-        winnerDomain: 'c7',
-    });
+    const [lotteryInfo, setLotteryInfo] = useState<any>();
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    const fetchData = async () => {
+        const res = await axios.get('https://inscription-indexer.fly.dev/lottery');
+
+        setLotteryInfo(res.data);
+    }
+
+    useEffect(() => {
+        fetchData().then(() => setIsLoaded(true));
+
+        const intervalId = setInterval(() => fetchData(), 5000);
+
+        return () => clearInterval(intervalId);
+    }, [])
+
+    if(!isLoaded) {
+        return null;
+    }
 
     return <Box
         gap="large"
@@ -19,9 +33,9 @@ export const LotteryInfoBlock = (() => {
     >
         <Box>
             <Text>From:{' '}
-                <b>{dateFormat(lotteryInfo.startTime * 1000)}</b>
+                <b>{dateFormat(lotteryInfo?.startTime * 1000)}</b>
                 {' '}to{' '}
-                <b>{dateFormat(lotteryInfo.endTime * 1000)}</b>
+                <b>{dateFormat(lotteryInfo?.endTime * 1000)}</b>
             </Text>
         </Box>
 
@@ -36,7 +50,7 @@ export const LotteryInfoBlock = (() => {
         >
             <Text color="white">Time left: </Text>
             <CountDownTimer
-                dateTime={new Date(lotteryInfo.endTime * 1000).toISOString()}
+                dateTime={new Date(lotteryInfo?.endTime * 1000).toISOString()}
             />
         </Box>
 
@@ -45,15 +59,27 @@ export const LotteryInfoBlock = (() => {
                 <a
                     target="_blank"
                     style={{ cursor: 'pointer' }}
-                    href={`https://explorer.harmony.one/tx/${lotteryInfo.firstTx}`}>
-                    {truncateAddressString(lotteryInfo.firstTx)}
+                    href={`https://explorer.harmony.one/tx/${lotteryInfo?.firstTx}`}>
+                    {truncateAddressString(lotteryInfo?.firstTx)}
                 </a>
             </Text>
         </Box>
 
-        <Box>
+        <Box gap="small" align="center">
             <Text><b>Closest Entry (current winner):{' '}</b>
-                ???
+                <a
+                    target="_blank"
+                    style={{ cursor: 'pointer' }}
+                    href={`https://explorer.harmony.one/tx/${lotteryInfo?.winnerTx}`}>
+                    {truncateAddressString(lotteryInfo?.winnerTx)}
+                </a>
+            </Text>
+            <Text><b>Winner Domain:{' '}</b>
+                {lotteryInfo?.winnerDomain}
+            </Text>
+
+            <Text><b>Winner Link:{' '}</b>
+                {lotteryInfo?.winnerLink}
             </Text>
         </Box>
     </Box>
