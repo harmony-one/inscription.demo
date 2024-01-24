@@ -78,7 +78,12 @@ const columns: any = [
         align: 'end',
         width: 100,
         render: (transactionHash) => {
-            return transactionHash.slice(-2)
+            return <a
+                href={`https://${transactionHash.slice(-2)}.country`}
+                target="_blank"
+            >
+                {transactionHash.slice(-2)}
+            </a>
         }
     },
 ];
