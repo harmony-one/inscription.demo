@@ -91,7 +91,8 @@ export const InscriptionHistory = observer((props) => {
         const res = await axios.get('https://inscription-indexer.fly.dev/inscriptions', {
             params: {
                 limit: 100,
-                to: '0x3abf101D3C31Aec5489C78E8efc86CaA3DF7B053'
+                to: '0x3abf101D3C31Aec5489C78E8efc86CaA3DF7B053',
+                timestampFrom: 1706126400
             }
         });
 

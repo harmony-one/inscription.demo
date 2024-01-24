@@ -118,7 +118,7 @@ export const SendTxBlock = observer((props) => {
                 background: 'rgb(0, 174, 233)'
             }}
         >
-            Send
+            Inscribe
         </Button>
 
         {error && <Text color="red">{error}</Text>}

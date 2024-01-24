@@ -74,12 +74,13 @@ export const LotteryInfoBlock = (() => {
                     {truncateAddressString(lotteryInfo?.winnerTx)}
                 </a>
             </Text>
-            <Text><b>Winner Domain:{' '}</b>
+            <Text><b>Current Winner Domain:{' '}</b>
+                {/* <a target="_blank" href={`${lotteryInfo?.winnerDomain}.country`}>{lotteryInfo?.winnerDomain}.country</a> */}
                 {lotteryInfo?.winnerDomain}
             </Text>
 
-            <Text><b>Winner Link:{' '}</b>
-                {lotteryInfo?.winnerLink}
+            <Text><b>Current Winner Tweet:{' '}</b>
+                <a target="_blank" href={lotteryInfo?.winnerLink}>link</a>
             </Text>
         </Box>
     </Box>
