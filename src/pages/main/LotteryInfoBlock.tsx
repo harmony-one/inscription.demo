@@ -55,7 +55,7 @@ export const LotteryInfoBlock = (() => {
         </Box>
 
         <Box>
-            <Text><b>First tx:{' '}</b>
+            <Text><b>Origin Inscription:{' '}</b>
                 <a
                     target="_blank"
                     style={{ cursor: 'pointer' }}
@@ -66,7 +66,7 @@ export const LotteryInfoBlock = (() => {
         </Box>
 
         <Box gap="small" align="center">
-            <Text><b>Winner tx:{' '}</b>
+            <Text><b>Closest Entry (current winner):{' '}</b>
                 <a
                     target="_blank"
                     style={{ cursor: 'pointer' }}
@@ -74,11 +74,11 @@ export const LotteryInfoBlock = (() => {
                     {truncateAddressString(lotteryInfo?.winnerTx)}
                 </a>
             </Text>
-            <Text><b>Winner domain:{' '}</b>
+            <Text><b>Winner Domain:{' '}</b>
                 {lotteryInfo?.winnerDomain}
             </Text>
 
-            <Text><b>Winner link:{' '}</b>
+            <Text><b>Winner Link:{' '}</b>
                 {lotteryInfo?.winnerLink}
             </Text>
         </Box>
