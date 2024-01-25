@@ -97,7 +97,8 @@ export const InscriptionHistory = observer((props) => {
             params: {
                 limit: 100,
                 to: '0x3abf101D3C31Aec5489C78E8efc86CaA3DF7B053',
-                timestampFrom: 1706126400
+                timestampFrom: 1706126400,
+                timestampTo: 1706126400 + 24 * 3600
             }
         });
 

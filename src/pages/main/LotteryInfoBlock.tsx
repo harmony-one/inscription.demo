@@ -27,7 +27,7 @@ export const LotteryInfoBlock = (() => {
         return () => clearInterval(intervalId);
     }, [])
 
-    if(!isLoaded) {
+    if (!isLoaded) {
         return null;
     }
 
@@ -53,10 +53,15 @@ export const LotteryInfoBlock = (() => {
             background="rgb(0, 174, 233)"
             style={{ maxWidth: 400, minHeight: 50 }}
         >
-            <Text color="white">Time left: </Text>
-            <CountDownTimer
-                dateTime={new Date(lotteryInfo?.endTime * 1000).toISOString()}
-            />
+            {lotteryInfo?.endTime * 1000 > Date.now() ?
+                <Box direction="row" gap="small" align="center">
+                    <Text color="white">Time left:</Text>
+                    <CountDownTimer
+                        dateTime={new Date(lotteryInfo?.endTime * 1000).toISOString()}
+                    />
+                </Box> :
+                <Text color="white">Finished</Text>
+            }
         </Box>
 
         <Box>
@@ -80,8 +85,8 @@ export const LotteryInfoBlock = (() => {
                 </a>
             </Text>
             {/* <Text><b>Current Winner Domain:{' '}</b> */}
-                {/* <a target="_blank" href={`https://${lotteryInfo?.winnerDomain}.country`}>{lotteryInfo?.winnerDomain}.country</a> */}
-                {/* {lotteryInfo?.winnerDomain} */}
+            {/* <a target="_blank" href={`https://${lotteryInfo?.winnerDomain}.country`}>{lotteryInfo?.winnerDomain}.country</a> */}
+            {/* {lotteryInfo?.winnerDomain} */}
             {/* </Text> */}
             <Text><b>Current Winner Tweet</b></Text>
             <Tweet id={getTweetId(lotteryInfo?.winnerLink)} />
