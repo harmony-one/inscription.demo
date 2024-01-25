@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Tweet } from 'react-tweet'
 import { Box, RadioButton, Text, TextArea, TextInput } from "grommet";
 import CountDownTimer from "@inlightmedia/react-countdown-timer";
 import { dateFormat, truncateAddressString } from "utils";
@@ -14,17 +15,15 @@ export const LotteryInfoBlock = (() => {
         setLotteryInfo(res.data);
     }
 
-    const processWinningTweet = (winningTweet: string) => {
-        winningTweet.replace('x.com', 'twitter.com');
-        const encodedURI = encodeURIComponent(winningTweet);
-        return 'https://twitframe.com/show?url=' + encodedURI;
+    const getTweetId = (url: string) => {
+        const regex = /\/status\/(\d+)/;
+        const match = url.match(regex);
+        return match[1];
     }
 
     useEffect(() => {
         fetchData().then(() => setIsLoaded(true));
-
         const intervalId = setInterval(() => fetchData(), 5000);
-
         return () => clearInterval(intervalId);
     }, [])
 
@@ -71,7 +70,7 @@ export const LotteryInfoBlock = (() => {
             </Text>
         </Box>
 
-        <Box gap="small" align="center">
+        <Box gap="small" align="center" className="light">
             <Text><b>Closest Entry (current winner):{' '}</b>
                 <a
                     target="_blank"
@@ -84,9 +83,8 @@ export const LotteryInfoBlock = (() => {
                 {/* <a target="_blank" href={`https://${lotteryInfo?.winnerDomain}.country`}>{lotteryInfo?.winnerDomain}.country</a> */}
                 {/* {lotteryInfo?.winnerDomain} */}
             {/* </Text> */}
-
             <Text><b>Current Winner Tweet</b></Text>
-            <iframe width={550} height={300} src={processWinningTweet(lotteryInfo?.winnerLink)} frameBorder={0}/>
+            <Tweet id={getTweetId(lotteryInfo?.winnerLink)} />
         </Box>
     </Box>
 })
