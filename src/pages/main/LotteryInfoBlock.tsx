@@ -14,6 +14,12 @@ export const LotteryInfoBlock = (() => {
         setLotteryInfo(res.data);
     }
 
+    const processWinningTweet = (winningTweet: string) => {
+        winningTweet.replace('x.com', 'twitter.com');
+        const encodedURI = encodeURIComponent(winningTweet);
+        return 'https://twitframe.com/show?url=' + encodedURI;
+    }
+
     useEffect(() => {
         fetchData().then(() => setIsLoaded(true));
 
@@ -79,9 +85,8 @@ export const LotteryInfoBlock = (() => {
                 {/* {lotteryInfo?.winnerDomain} */}
             </Text>
 
-            <Text><b>Current Winner Tweet:{' '}</b>
-                <a target="_blank" href={lotteryInfo?.winnerLink}>link</a>
-            </Text>
+            <Text><b>Current Winner Tweet</b></Text>
+            <iframe width={550} height={300} src={processWinningTweet(lotteryInfo?.winnerLink)} frameBorder={0}/>
         </Box>
     </Box>
 })
