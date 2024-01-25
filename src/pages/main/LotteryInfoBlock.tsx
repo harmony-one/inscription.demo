@@ -80,10 +80,10 @@ export const LotteryInfoBlock = (() => {
                     {truncateAddressString(lotteryInfo?.winnerTx)}
                 </a>
             </Text>
-            <Text><b>Current Winner Domain:{' '}</b>
-                <a target="_blank" href={`https://${lotteryInfo?.winnerDomain}.country`}>{lotteryInfo?.winnerDomain}.country</a>
+            {/* <Text><b>Current Winner Domain:{' '}</b> */}
+                {/* <a target="_blank" href={`https://${lotteryInfo?.winnerDomain}.country`}>{lotteryInfo?.winnerDomain}.country</a> */}
                 {/* {lotteryInfo?.winnerDomain} */}
-            </Text>
+            {/* </Text> */}
 
             <Text><b>Current Winner Tweet</b></Text>
             <iframe width={550} height={300} src={processWinningTweet(lotteryInfo?.winnerLink)} frameBorder={0}/>
