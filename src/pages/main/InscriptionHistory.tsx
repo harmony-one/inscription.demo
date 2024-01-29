@@ -5,6 +5,7 @@ import Table from 'rc-table';
 import axios from "axios";
 import { dateTimeAgoFormat, truncateAddressString } from "utils";
 import * as _ from 'lodash';
+import { ILotteryInfo } from "./types";
 
 const columns: any = [
     {
@@ -87,7 +88,9 @@ const columns: any = [
     },
 ];
 
-export const InscriptionHistory = observer((props) => {
+export const InscriptionHistory = observer((
+    { lotteryInfo }: { lotteryInfo?: ILotteryInfo }
+) => {
     const [data, setData] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -96,8 +99,8 @@ export const InscriptionHistory = observer((props) => {
             params: {
                 limit: 100,
                 to: '0x3abf101D3C31Aec5489C78E8efc86CaA3DF7B053',
-                timestampFrom: 1706641200,
-                timestampTo: 1706641200 + 24 * 3600
+                timestampFrom: lotteryInfo?.startTime,
+                timestampTo: lotteryInfo?.endTime
             }
         });
 
@@ -111,17 +114,25 @@ export const InscriptionHistory = observer((props) => {
     }
 
     useEffect(() => {
-        fetchData().then(() => setIsLoaded(true));
+        let intervalId
 
-        const intervalId = setInterval(() => fetchData(), 5000);
+        if (lotteryInfo) {
+            fetchData().then(() => setIsLoaded(true));
+
+            intervalId = setInterval(() => fetchData(), 5000);
+        }
 
         return () => clearInterval(intervalId);
-    }, [])
+    }, [lotteryInfo])
 
     if (!isLoaded) {
         return <Box>
             Loading...
         </Box>
+    }
+
+    if(!data.length) {
+        return null;
     }
 
     return <Box
