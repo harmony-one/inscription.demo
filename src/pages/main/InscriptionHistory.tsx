@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Box, Text, TextArea } from "grommet";
+import { Box, Text } from "grommet";
 import { observer } from "mobx-react-lite";
-import { useStores } from "stores";
 import Table from 'rc-table';
 import axios from "axios";
 import { dateTimeAgoFormat, truncateAddressString } from "utils";
@@ -148,6 +147,7 @@ export const InscriptionHistory = observer((
         <Table
             data={data}
             columns={columns}
+            emptyText={() => null}
         />
     </Box>
 })
