@@ -23,8 +23,8 @@ export const Main = (() => {
         <Box gap="medium" align="center" fill={true}>
             <Text size="xlarge" weight="bold">Quest</Text>
             <Text size="medium" style={{ maxWidth: '100%' }}>
-                Inscribe your favorite tweet. In 24 hours, the transaction hash with the closest last 2 digits to the Origin Inscription's last 2 digits (in HEX) will become the winner. Prize soon to be announced!
-            </Text>
+
+            Inscribe your favorite tweet. In 24 hours, the transaction hash with the closest last 2 digits to the Origin Inscription's last 2 digits (in HEX) will win 10,000 ONES and 2,000 ONE!            </Text>
         </Box>
 
         <Plane background="#f2f3f7">
