@@ -75,7 +75,7 @@ export const SendTxBlock = observer((props) => {
             direction="column"
             gap="5px"
         >
-            <Text>Tweet link:</Text>
+            <Text>Tweet Link:</Text>
             <Box width="600px">
                 <TextInput
                     size="auto"

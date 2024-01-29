@@ -76,7 +76,7 @@ export const LotteryInfoBlock = (() => {
         </Box>
 
         <Box gap="small" align="center" className="light">
-            <Text><b>Closest Entry (current winner):{' '}</b>
+            <Text><b>Closest Entry (Current Winner):{' '}</b>
                 <a
                     target="_blank"
                     style={{ cursor: 'pointer' }}
