@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Box, Text, TextArea } from "grommet";
+import { Box, Text } from "grommet";
 import { observer } from "mobx-react-lite";
-import { useStores } from "stores";
 import Table from 'rc-table';
 import axios from "axios";
 import { dateTimeAgoFormat, truncateAddressString } from "utils";
@@ -97,8 +96,8 @@ export const InscriptionHistory = observer((props) => {
             params: {
                 limit: 100,
                 to: '0x3abf101D3C31Aec5489C78E8efc86CaA3DF7B053',
-                timestampFrom: 1706126400,
-                timestampTo: 1706126400 + 24 * 3600
+                timestampFrom: 1706641200,
+                timestampTo: 1706641200 + 24 * 3600
             }
         });
 
@@ -137,6 +136,7 @@ export const InscriptionHistory = observer((props) => {
         <Table
             data={data}
             columns={columns}
+            emptyText={() => null}
         />
     </Box>
 })
