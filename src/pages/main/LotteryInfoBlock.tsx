@@ -63,7 +63,7 @@ export const LotteryInfoBlock = ((
                 <Text><b>Origin Inscription:{' '}</b>
                     <a
                         target="_blank"
-                        style={{ cursor: 'pointer' }}
+                        style={{ cursor: 'pointer', fontFamily: 'monospace' }}
                         href={`https://explorer.harmony.one/tx/${lotteryInfo?.firstTx}`}>
                         {truncateAddressString(lotteryInfo?.firstTx)}
                     </a>
@@ -72,7 +72,7 @@ export const LotteryInfoBlock = ((
         }
 
         <Box gap="small" align="center" className="light">
-            {lotteryInfo?.winnerTx &&
+            {/* {lotteryInfo?.winnerTx &&
                 <Text><b>Closest Entry (Current Winner):{' '}</b>
                     <a
                         target="_blank"
@@ -81,7 +81,33 @@ export const LotteryInfoBlock = ((
                         {truncateAddressString(lotteryInfo?.winnerTx)}
                     </a>
                 </Text>
-            }
+            } */}
+
+            {lotteryInfo?.winnerTx && <Text><b>Current Winners:{' '}</b></Text>}
+            <Box direction="column" gap="10px">
+                {lotteryInfo?.winners.slice(0, 6).map(winnerTx =>
+                    <Box direction="row" gap="20px">
+                        <Text>
+                            <a
+                                target="_blank"
+                                style={{ cursor: 'pointer', fontFamily: 'monospace' }}
+                                href={`https://explorer.harmony.one/tx/${winnerTx}`}>
+                                {truncateAddressString(winnerTx)}
+                            </a>
+                        </Text>
+                        <Text>
+                            <a
+                                target="_blank"
+                                style={{ cursor: 'pointer', fontFamily: 'monospace' }}
+                                href={`https://${winnerTx.slice(-2)}.country`}>
+                                {winnerTx.slice(-2)}.country
+                            </a>
+                        </Text>
+                    </Box>
+                )
+                }
+            </Box>
+
             {/* <Text><b>Current Winner Domain:{' '}</b> */}
             {/* <a target="_blank" href={`https://${lotteryInfo?.winnerDomain}.country`}>{lotteryInfo?.winnerDomain}.country</a> */}
             {/* {lotteryInfo?.winnerDomain} */}

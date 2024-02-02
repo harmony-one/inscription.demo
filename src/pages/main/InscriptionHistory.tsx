@@ -54,35 +54,35 @@ const columns: any = [
             </Box>
         }
     },
-    {
-        title: 'Tweet',
-        dataIndex: 'payload',
-        key: 'payload',
-        align: 'end',
-        width: 100,
-        render: (payload) => {
-            return <Box margin={{ vertical: 'medium' }}>
-                <a
-                    href={payload.value}
-                    target="_blank"
-                >
-                    link
-                </a>
-            </Box>
-        }
-    },
+    // {
+    //     title: 'Tweet',
+    //     dataIndex: 'payload',
+    //     key: 'payload',
+    //     align: 'end',
+    //     width: 100,
+    //     render: (payload) => {
+    //         return <Box margin={{ vertical: 'medium' }}>
+    //             <a
+    //                 href={payload.value}
+    //                 target="_blank"
+    //             >
+    //                 link
+    //             </a>
+    //         </Box>
+    //     }
+    // },
     {
         title: 'Domain',
         dataIndex: 'transactionHash',
         key: 'transactionHash',
         align: 'end',
-        width: 100,
+        width: 150,
         render: (transactionHash) => {
             return <a
                 href={`https://${transactionHash.slice(-2)}.country`}
                 target="_blank"
             >
-                {transactionHash.slice(-2)}
+                {transactionHash.slice(-2)}.country
             </a>
         }
     },
@@ -98,15 +98,13 @@ export const InscriptionHistory = observer((
         const res = await axios.get('https://inscription-indexer.fly.dev/inscriptions', {
             params: {
                 limit: 100,
-                to: '0x3abf101D3C31Aec5489C78E8efc86CaA3DF7B053',
+                // to: '0x3abf101D3C31Aec5489C78E8efc86CaA3DF7B053',
                 timestampFrom: lotteryInfo?.startTime,
                 timestampTo: lotteryInfo?.endTime
             }
         });
 
-        let data = res.data.filter(
-            d => ['x.com', 'twitter.com'].some(sub => d.payload?.value?.includes(sub))
-        );
+        let data = res.data.filter(d => d.payload?.type === 'image');
 
         data = _.uniqBy(data, 'transactionHash');
 
