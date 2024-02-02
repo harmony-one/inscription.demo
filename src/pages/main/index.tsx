@@ -39,7 +39,7 @@ export const Main = (() => {
         <Box gap="medium" align="center" fill={true}>
             <Text size="xlarge" weight="bold">Quest</Text>
             <Text size="medium" style={{ maxWidth: '100%' }}>
-                Inscribe your favorite tweet. In 24 hours, the transaction hash with the closest last 2 digits to the Origin Inscription's last 2 digits (in HEX) will win 10,000 ONES and 2,000 ONE!
+                Create and share to enter lottery by creating an image using the Harmony 1Bot. In 24 hours, the associated transaction hash with the closest last 2 digits to the Origin Inscription’s last 2 digits (in HEX) will win. 6 knights, 6 winners!
                 <br /> <br />
                 <em><small>*In the event of tie, winner will be decided based on the latest inscription.</small></em>
             </Text>
@@ -50,7 +50,12 @@ export const Main = (() => {
         </Plane>
 
         <Plane borderOpacity="0.1">
-            <SendTxBlock />
+            {/* <SendTxBlock /> */}
+            <Box fill={true} align="center" justify="center">
+                <Text>
+                    Create an image at <a href="https://t.me/harmony1bot" target="_blank">Harmony One Bot</a> to enter
+                </Text>
+            </Box>
         </Plane>
 
         <Plane background="#f2f3f7">
